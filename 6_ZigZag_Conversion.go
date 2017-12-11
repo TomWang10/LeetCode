@@ -18,7 +18,6 @@ func convert(s string, numRows int) string {
 			i++
 		}
 	}
-	//var result string
 	var result bytes.Buffer
 	for _, v := range resultArray {
 		result.Write(v)
