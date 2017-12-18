@@ -55,14 +55,29 @@ func isMatch(s string, p string) bool {
 	return false
 }
 
+func isMatch2(s string, p string) bool {
+	sLength := len(s)
+	pLength := len(p)
+	if pLength == 0 {
+		return sLength == 0
+	}
+	firstMatch := sLength != 0 && (s[0] == p[0] || p[0] == '.')
+
+	if pLength >= 2 && p[1] == '*' {
+		return isMatch2(s, p[2:]) || (firstMatch && isMatch2(s[1:], p))
+	} else {
+		return firstMatch && isMatch2(s[1:], p[1:])
+	}
+}
+
 func main() {
-	fmt.Println(isMatch("aa","a"))
-	fmt.Println(isMatch("aa","aa"))
-	fmt.Println(isMatch("aaa","aa"))
-	fmt.Println(isMatch("aa", "a*"))
-	fmt.Println(isMatch("aa", ".*"))
-	fmt.Println(isMatch("ab", ".*"))
-	fmt.Println(isMatch("aab", "c*a*b"))
-	fmt.Println(isMatch("aaa", "ab*a*c*a"))
-	fmt.Println(isMatch("aaa", "aaaa"))
+	fmt.Println(isMatch2("aa","a"))
+	fmt.Println(isMatch2("aa","aa"))
+	fmt.Println(isMatch2("aaa","aa"))
+	fmt.Println(isMatch2("aa", "a*"))
+	fmt.Println(isMatch2("aa", ".*"))
+	fmt.Println(isMatch2("ab", ".*"))
+	fmt.Println(isMatch2("aab", "c*a*b"))
+	fmt.Println(isMatch2("aaa", "ab*a*c*a"))
+	fmt.Println(isMatch2("aaa", "aaaa"))
 }
