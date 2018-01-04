@@ -12,14 +12,14 @@ func CanPlace(table *[]int, row int, col int) (can bool) {
 		if v == col {
 			return  false
 		}
-		if math.Dim(math.Abs(float64(row - k)), math.Abs(float64(col - v))) < 0.000001 {
+		if math.Abs(float64(row - k)) == math.Abs(float64(col - v)) {
 			return false
 		}
 	}
 	return true
 }
 
-func QueueHelper(result *[][]string, table *[]int, row int) {
+func QueensHelper(result *[][]string, table *[]int, row int) {
 	if row == len(*table) {
 		// 添加到结果
 		// 生成棋盘
@@ -41,17 +41,18 @@ func QueueHelper(result *[][]string, table *[]int, row int) {
 			// 放入
 			(*table)[row] = col
 			// 下一行
-			QueueHelper(result, table, row+1)
+			QueensHelper(result, table, row+1)
+			(*table)[row] = -10000
+			}
 		}
-	}
 }
 
 func solveNQueens(n int) (result [][]string) {
-	table :=  make([]int, n)
+	table := make([]int, n)
 	for i := 0; i < len(table); i++ {
-		table[i] = -1
+		table[i] = -10000
 	}
-	QueueHelper(&result, &table, 0)
+	QueensHelper(&result, &table, 0)
 	return result
 }
 
