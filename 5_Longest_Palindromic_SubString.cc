@@ -63,7 +63,7 @@ public:
         int currMaxIndex = 0, currMaxRight = 0, maxRadius = 0;
         for (auto i = 0; i < tmpStr.length(); ++i)
         {
-           maxTable[i] = currMaxRight > i ?  min(maxTable[currMaxIndex * 2 - i], currMaxRight - i) : 1;
+           maxTable[i] = currMaxRight > i ?  min(maxTable[currMaxIndex - (i - currMaxIndex)], currMaxRight - i) : 1;
            while(tmpStr[i + maxTable[i]] == tmpStr[i - maxTable[i]]) ++maxTable[i];
            if ((currMaxRight - currMaxIndex) < maxTable[i])
            {
